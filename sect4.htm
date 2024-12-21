@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>分乗車両</title>
+
+<style>
+
+	html {
+		font-size: 3.3vw;
+	}
+
+	@keyframes slideIn { /* Slide in from bottom */
+		0% {
+			transform: translateY(100%);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		width: 100%;
+		background-color: #FDFEFE;
+		font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+			/*	font-family: "ヒラギノ明朝", serif;	*/
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	header, footer {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		background-color: #FDFEFE;
+		z-index: 1200;
+	}
+
+	header {
+		top: 0;
+		height: 3.5rem;
+	}
+
+	footer {
+		bottom: 0;
+		height: 3.0rem;
+	}
+
+	main {
+		position: relative;
+		left: 0;
+		min-height: 100vh;
+		width: 100%;
+		z-index: 1100;
+	}
+
+	.main_margin {
+		height: calc(3.5rem + 6.0vh);
+	}
+
+	@media only screen and (orientation: portrait) {
+		header, footer {
+			display: block;
+		/*	position: fixed;	*/
+		}
+		main {
+			top: 0;
+			left: 0;
+		}
+		.main_margin {
+			height: calc(3.5rem + 6.0vh);
+		}
+		#hiddenDiv {
+			display: none;
+		}
+		#toggleDiv {
+			display: block;
+		}
+	}
+
+	@media only screen and (orientation: landscape) {
+		header, footer {
+			display: none;
+		}
+		main {
+			top: 0;
+			left: 0;
+		}
+		.main_margin {
+			height: 5.0rem;
+		}
+		#hiddenDiv {
+			display: block;
+		}
+		#toggleDiv {
+			display: none;
+		}
+	}
+
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.head_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80%;
+		height: 3.5rem;
+		border-bottom: 0.1rem solid #2020ff;
+	}
+
+	.foot_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 3.0rem;
+	}
+
+	a {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+
+	.padding_a {
+		padding-left: 3.0rem;
+		padding-right: 3.0rem;
+	}
+
+	.head_span {
+		font-size: 2.0rem;
+		padding: 0.5rem;
+		color: #202020;
+	}
+
+	.name_span {
+		font-size: 1.5rem;
+		color: #202020;
+	}
+
+	.foot1_span {
+		font-size: 1.7rem;
+		color: #202020;
+	}
+
+	.foot2_span {
+		font-size: 1.0rem;
+		color: #202020;
+	}
+
+	.foot3_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	.car_body {
+		position: relative;
+		margin: 0 auto;
+		width: 21.3rem;
+		height: 34.5rem;
+		border-radius: 3.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+		margin-bottom: 12.0vh;
+	}
+
+	.car_num {
+		position: absolute;
+		width: 9.0rem;
+		height: 4.0rem;
+		background-color: transpalent;
+		text-align: center;
+		z-index: 1150;
+	}	
+
+	.stearing_wheel {
+		position: absolute;
+		width:  6.0rem;
+		height: 2.0rem;
+		border-radius: 50%;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.car_seat_f {
+		position: absolute;
+		width: 9.9rem;
+		height: 8.0rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.back_rest_f {
+		position: absolute;
+		width: 9.9rem;
+		height: 2.6rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.car_seat_r {
+		position: absolute;
+		width: 20.1rem;
+		height: 8.0rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.back_rest_r {
+		position: absolute;
+		width: 20.1rem;
+		height: 2.6rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.name {
+		position: absolute;
+		width: 9.4rem;
+		height: 1.7rem;
+		background-color: #FDFEFE;
+		text-align: center;
+	}	
+
+        #scrollBack {
+	}
+
+	.toggle-color1, .toggle-color2, .toggle-color3, .toggle-color4, .toggle-color5 {
+		color: #2020ff;
+	}
+
+	.toggle-img1, .toggle-img2, .toggle-img3, .toggle-img4, .toggle-img5 {
+		position: absolute;
+		width: 27.0rem;
+		top: calc(100% + 2.5rem);
+		right: -9.0rem;
+		opacity: 0;
+		z-index: 1300;
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	.hidden_div {
+		margin-top: 1.0rem;
+	}
+
+	.alt-image {
+		display: block;
+		margin: 0 auto;
+		margin-top: 5vh;
+		height: 90vh;
+		z-index: 1300;
+	}
+
+	.alt_p {
+		font-size: 1.0rem;
+		color: #202020;
+		background-color: transparent;
+		text-align: right;
+		margin-right: 4.0rem;
+		transform: translateY(-90%)
+	}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+	<div class="head_div">
+		<a class="padding_a" href="index.htm">
+			<span class="head_span">旅のしおり</span>
+		</a>
+	</div>
+
+</header>
+
+<main style=" animation: slideIn 0.5s ease-in-out forwards;">
+
+	<div class="main_margin" id="toggleDiv"></div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<img class="alt-image" src="car1a.gif" alt="アクア">
+
+		<p class="alt_p">１号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info1" class="foot1_span toggle-color1">１号車</span>
+			<img class="toggle-img1" src="car1a.gif" alt="アクア">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name" style="top: 38%; left:  3%;"><span class="name_span">田辺智加</span></div>
+		<div class="name" style="top: 38%; left: 52%;"><span class="name_span">所ジョージ</span></div>
+		<div class="name" style="top: 71%; left:  3%;"><span class="name_span">松子ＤＸ</span></div>
+		<div class="name" style="top: 71%; left: 52%;"><span class="name_span">柳原可奈子</span></div>
+		<div class="name" style="top: 81.7%; left: 28%;"></div>
+		<div class="name" style="top: 91%; left: 27%;"><span class="name_span">い 29-98</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img class="alt-image" src="car2b.gif" alt="シビック">
+
+		<p class="alt_p">２号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info2" class="foot1_span toggle-color2">２号車</span>
+			<img class="toggle-img2" src="car2b.gif" alt="シビック">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name" style="top: 38%; left:  3%;"><span class="name_span">滝沢清子</span></div>
+		<div class="name" style="top: 38%; left: 52%;"><span class="name_span">聖母游輔</span></div>
+		<div class="name" style="top: 71%; left:  3%;"><span class="name_span">池崎陽光</span></div>
+		<div class="name" style="top: 71%; left: 52%;"><span class="name_span">仲間玲奈</span></div>
+		<div class="name" style="top: 81.7%; left: 28%;"></div>
+		<div class="name" style="top: 91%; left: 27%;"><span class="name_span">ろ 48-35</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img class="alt-image" src="car3a.gif" alt="ソリオ">
+
+		<p class="alt_p">３号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info3" class="foot1_span toggle-color3">３号車</span>
+			<img class="toggle-img3" src="car3a.gif" alt="ソリオ">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name" style="top: 38%; left:  3%;"><span class="name_span">湊屋のぞみ</span></div>
+		<div class="name" style="top: 38%; left: 52%;"><span class="name_span">渡瀬正直</span></div>
+		<div class="name" style="top: 71%; left:  3%;"><span class="name_span">深谷天祐</span></div>
+		<div class="name" style="top: 71%; left: 52%;"><span class="name_span">荒道恵</span></div>
+		<div class="name" style="top: 81.7%; left: 28%;"></div>
+		<div class="name" style="top: 91%; left: 27%;"><span class="name_span">は 66-74</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img class="alt-image" src="car4a.gif" alt="フォレスター">
+
+		<p class="alt_p">４号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info4" class="foot1_span toggle-color4">４号車</span>
+			<img class="toggle-img4" src="car4a.gif" alt="フォレスター">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name" style="top: 38%; left:  3%;"><span class="name_span">野口英世</span></div>
+		<div class="name" style="top: 38%; left: 52%;"><span class="name_span">樋口一葉</span></div>
+		<div class="name" style="top: 71%; left:  3%;"></div>
+		<div class="name" style="top: 71%; left: 52%;"><span class="name_span">福沢諭吉</span></div>
+		<div class="name" style="top: 81.7%; left: 28%;"><span class="name_span">紫式部</span></div>
+		<div class="name" style="top: 91%; left: 27%;"><span class="name_span">に 83-14</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img  class="alt-image" src="car5a.gif" alt="エルグランド">
+
+		<p class="alt_p">５号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info5" class="foot1_span toggle-color5">５号車</span>
+			<img class="toggle-img5" src="car5a.gif" alt="エルグランド">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name" style="top: 38%; left:  3%;"><span class="name_span">米津玄枝</span></div>
+		<div class="name" style="top: 38%; left: 52%;"><span class="name_span">廣末涼悟</span></div>
+		<div class="name" style="top: 71%; left:  3%;"><span class="name_span">中野美奈男</span></div>
+		<div class="name" style="top: 71%; left: 52%;"><span class="name_span">長友佑乃</span></div>
+		<div class="name" style="top: 81.7%; left: 28%;"></div>
+		<div class="name" style="top: 91%; left: 27%;"><span class="name_span">ほ 96-48</span></div>
+	</div>
+
+	<div class="main_margin"></div>
+
+</main>
+
+<footer>
+
+	<div id="scrollBack" class="foot_div">
+		<p>
+			<span class="foot1_span">&copy;</span>
+			<span class="foot2_span">昭和４９年度 妻鳥小学校 卒業生</span>
+			<span class="foot3_span"> 2025</span>
+		</p>
+	</div>
+
+</footer>
+
+<script>
+
+	function toggleInfo(toggleColor, toggleImg) {
+		if (toggleImg.style.opacity === '' || toggleImg.style.opacity === '0') {
+			toggleImg.style.opacity = '0.7';
+			document.getElementById(toggleColor).style.color = 'red';
+		} else {
+			toggleImg.style.opacity = '0';
+			document.getElementById(toggleColor).style.color = '#2020ff';
+		}
+	}
+
+	document.getElementById('toggle-info1').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info1', 
+			document.querySelector('.toggle-img1')
+		);
+	});
+
+	document.getElementById('toggle-info2').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info2', 
+			document.querySelector('.toggle-img2')
+		);
+	});
+
+	document.getElementById('toggle-info3').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info3', 
+			document.querySelector('.toggle-img3')
+		);
+	});
+
+	document.getElementById('toggle-info4').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info4', 
+			document.querySelector('.toggle-img4')
+		);
+	});
+
+	document.getElementById('toggle-info5').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info5', 
+			document.querySelector('.toggle-img5')
+		);
+	});
+
+
+
+	var footer = document.getElementById("scrollBack");
+
+	scrollBack.addEventListener('click', function() {
+		smoothScrollToTop();
+	});
+
+	function smoothScrollToTop() {
+		var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+		if (currentScroll > 0) {
+			window.requestAnimationFrame(smoothScrollToTop);
+			window.scrollTo(0, currentScroll - currentScroll / 8);
+		}
+	}
+
+
+
+	let savedScrollPositionPercentage = 0;
+	const offset = 5; //set offset as px
+	
+	function saveScrollPosition() {
+		const documentHeight = document.documentElement.scrollHeight;
+		const viewportHeight = window.innerHeight;
+		const scrollPosition = window.scrollY;
+		savedScrollPositionPercentage = (scrollPosition / (documentHeight - viewportHeight)) * 100;
+
+	}
+
+	window.addEventListener('scroll', saveScrollPosition);
+
+	window.addEventListener('resize', () => {
+		if (window.innerHeight < window.innerWidth) {
+			const documentHeight = document.documentElement.scrollHeight;
+			const viewportHeight = window.innerHeight;
+			const targetScrollPosition = (savedScrollPositionPercentage / 100) * (documentHeight - viewportHeight) + offset;
+			window.scrollTo(0, targetScrollPosition);
+		}
+	});
+
+	window.addEventListener('orientationchange', () => {
+		if (window.innerHeight < window.innerWidth) {
+			const documentHeight = document.documentElement.scrollHeight;
+			const viewportHeight = window.innerHeight;
+			const targetScrollPosition = (savedScrollPositionPercentage / 100) * (documentHeight - viewportHeight) + offset;
+			window.scrollTo(0, targetScrollPosition);
+		}
+	});
+
+/* */
+
+</script>
+
+</body>
+
+</html>
