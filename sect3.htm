@@ -278,7 +278,7 @@
 		}
 
 		content.addEventListener("mousemove", moveLens);
-		content.addEventListener("touchmove", moveLens, { passive: false });
+		content.addEventListener("touchmove", moveLens);
 		content.addEventListener("mouseout", () => {
 			lensImgBox.style.opacity = 0;
 		});
