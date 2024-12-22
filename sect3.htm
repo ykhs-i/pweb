@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>旅行地図</title>
+
+<style>
+	html {
+		font-size: 3.3vw;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		width: 100%;
+		background-color: #FDFEFE;
+		font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	.content {
+		cursor: pointer;
+		position: relative;
+		margin: 0;
+		display: none;
+	}
+
+	.base_img_box {
+		z-index: 0;
+	}
+
+	.base_img {
+		display: block;
+		position: relative;
+		margin: 0;
+		height: 100vh;
+		top: 0;
+	}
+
+        .lens_img_box {
+		position: absolute;
+		opacity: 0;
+		width: 8.0rem;
+		height: 8.0rem;
+		background-color: white;
+		overflow: hidden;
+		pointer-events: none;
+		border-radius: 100%;
+		border: solid 5px #ffffff;
+		box-shadow: 0 0 10px rgba(0,0,0,0.3);
+		z-index: 1;
+		transition: opacity 0.2s ease;
+	}
+
+	.lens_img {
+		position: absolute;
+		transform-origin: center;
+	}
+
+	@media (orientation: portrait) {
+		.lens_img_box {
+			display: none;
+		}
+	}
+
+	.note_p {
+		position: absolute;
+		display: block;
+		margin: 0;
+		bottom:20%;
+		left: 40%;
+		font-size: 0.7rem;
+		font-weight: bold;
+		color:red;
+		white-space: nowrap;
+		opacity: 0.8;
+		z-index: 1100;
+	}
+
+	header, footer {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		background-color: #FDFEFE;
+		z-index: 1200;
+	}
+
+	header {
+		top: 0;
+		height: 3.5rem;
+	}
+
+	main {
+		position: relative;
+		left: 0;
+		height: 100vh;
+		width: 100%;
+		z-index: 1100;
+	}
+
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.head_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80%;
+		height: 3.5rem;
+		border-bottom: 0.1rem solid #2020ff;
+	}
+
+	a {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.padding_a {
+		padding-left: 3.0rem;
+		padding-right: 3.0rem;
+	}
+
+	.head_span {
+		font-size: 2.0rem;
+		color: #202020;
+	}
+
+	#map {
+		width: 100%;
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	iframe {
+		width: 100%;
+		height: calc(100vh + 4.0rem);
+		margin-top: -4.0rem;
+	}
+
+	@media only screen and (orientation: landscape) {
+
+		header, main, footer {
+			display: none;
+		}
+
+		.content {
+			display: inline-block;
+		}
+
+	}
+
+</style>
+
+</head>
+
+<body>
+	<div class="content">
+			<img class="base_img" src='nodegram.png' alt="拡大対象の画像">
+			<p class="note_p">タップ箇所が拡大表示されます</p>
+	</div>
+
+<header>
+	<div class="head_div">
+		<a class="padding_a" href="index.htm">
+			<span class="head_span">旅のしおり</span>
+		</a>
+	</div>
+
+</header>
+
+<main>
+
+	<div id="map">
+	<iframe src="https://www.google.com/maps/d/embed?mid=1bztiujh9BXAF60Wc8dmh1CCFhA05X8M&?ll=30.0000,135.0000&z=9&usp=sharing"
+		width="100%" height=600 style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+	</iframe>
+	</div>
+
+</main>
+
+<script>
+
+	document.addEventListener('DOMContentLoaded', function() {
+		let baseImg = document.querySelector(".base_img");
+		if (baseImg.complete) {
+			setImgClone();
+		} else {
+			baseImg.onload = setImgClone;
+		}
+	});
+
+	function setImgClone() {
+		let content = document.querySelector(".content");
+		let baseImg = document.querySelector(".base_img");
+		let lensImgBox = document.createElement('div');
+		lensImgBox.className = "lens_img_box";
+
+		let lensImg = baseImg.cloneNode(true);
+		lensImg.className = "lens_img";
+		lensImg.style.transform = "scale(3)";
+
+		lensImgBox.appendChild(lensImg);
+		content.appendChild(lensImgBox);
+
+		const ratio = 3;
+		let isLandscape = window.matchMedia("(orientation: landscape)").matches;
+
+		const naturalWidth = baseImg.naturalWidth;
+		const naturalHeight = baseImg.naturalHeight;
+
+		function moveLens(event) {
+			if (!isLandscape) return;
+			event.preventDefault();
+
+			let rect = baseImg.getBoundingClientRect();
+			let displayWidth = rect.width;
+			let displayHeight = rect.height;
+
+			let posX, posY;
+			if (event.type === 'mousemove') {
+				posX = event.clientX - rect.left;
+				posY = event.clientY - rect.top;
+			} else if (event.type === 'touchmove') {
+				const touch = event.touches[0];
+				posX = touch.clientX - rect.left;
+				posY = touch.clientY - rect.top;
+			}
+
+			if (posX < 0 || posX > rect.width || posY < 0 || posY > rect.height) {
+				lensImgBox.style.opacity = 0;
+				return;
+			}
+
+			lensImgBox.style.opacity = 1;
+
+			let lensSize = parseInt(getComputedStyle(lensImgBox).width);
+			let lensHalfSize = lensSize / 2;
+
+			let lensX = posX - lensHalfSize;
+			let lensY = posY - lensHalfSize;
+
+			lensImgBox.style.top = lensY + "px";
+			lensImgBox.style.left = lensX + "px";
+
+			let offsetX = posX * ratio - lensHalfSize * ratio;
+			let offsetY = posY * ratio - lensHalfSize * ratio;
+
+			lensImg.style.transformOrigin = "top left";
+			lensImg.style.width = rect.width + "px";
+			lensImg.style.height = rect.height + "px";
+			lensImg.style.top = -offsetY - lensSize + "px";
+			lensImg.style.left = -offsetX - lensSize + "px";
+		}
+
+		content.addEventListener("mousemove", moveLens);
+		content.addEventListener("touchmove", moveLens, { passive: false });
+		content.addEventListener("mouseout", () => {
+			lensImgBox.style.opacity = 0;
+		});
+		content.addEventListener("touchend", () => {
+			lensImgBox.style.opacity = 0;
+		});
+	}
+
+</script>
+
+</body>
+
+</html>
