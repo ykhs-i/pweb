@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>ダイアグラム</title>
+  <style>
+    html {
+      font-size: 3.3vw;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      width: 100%;
+      background-color: #FDFEFE;
+      font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+      user-select: none;
+      touch-action: pan-y;
+      overflow-y: scroll;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .content {
+      cursor: pointer;
+      position: relative;
+      margin: 0;
+    }
+
+    .base_img {
+      display: block;
+      position: relative;
+      margin: 0 auto;
+      width: 100%;
+      max-height: 100vh;
+      object-fit: contain;
+      top: 0;
+      transition: transform 0.5s ease, transform-origin 0s ease;
+    }
+
+    .note_p {
+      position: absolute;
+      display: block;
+      margin: 0;
+      padding: 0.1rem;
+      bottom: 3.0rem;
+      right: 10%;
+      font-size: 0.6rem;
+      font-weight: bold;
+      color: red;
+      white-space: nowrap;
+      opacity: 0.8;
+      z-index: 1100;
+    }
+
+    /* スライドインウィンドウのスタイル */
+    .side-window {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+      transition: left 0.3s ease;
+      z-index: 1200;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .side-window.open {
+      left: 0;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .link-content {
+      margin-top: 20px;
+    }
+
+    .link-content a {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .link-content a:hover {
+      text-decoration: underline;
+    }
+
+    .overlay {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <img class="base_img" src="nodegram.png" alt="拡大対象の画像">
+    <p class="note_p">タップ ➡ 拡大</p>
+    <p class="note_p" style="bottom: 2.0rem">スライド ➡ 保持</p>
+    <p class="note_p" style="bottom: 1.0rem">リリース ➡ 縮小</p>
+
+    <!-- スライドインウィンドウ -->
+    <div id="side-window" class="side-window">
+      <span class="close-btn" onclick="closeWindow()">×</span>
+      <div class="link-content">
+        <a href="https://example.com" target="_blank">リンク 1</a>
+        <a href="https://example.com" target="_blank">リンク 2</a>
+        <a href="https://example.com" target="_blank">リンク 3</a>
+      </div>
+    </div>
+
+    <!-- 透明な<div> -->
+    <div class="overlay" style="top: 10%; left: 20%; width: 100px; height: 100px;" onclick="openWindow(event, 'https://example.com')"></div>
+    <div class="overlay" style="top: 40%; left: 50%; width: 120px; height: 120px;" onclick="openWindow(event, 'https://another-link.com')"></div>
+    <div class="overlay" style="top: 70%; left: 70%; width: 100px; height: 100px;" onclick="openWindow(event, 'https://third-link.com')"></div>
+  </div>
+
+<script>
+const image = document.querySelector('.base_img');
+let isZoomed = false;
+
+// タッチ開始時の処理
+image.addEventListener('touchstart', (event) => {
+    if (event.touches.length !== 1) return;  // シングルタッチのみ処理
+    
+    const touch = event.touches[0];
+    const rect = image.getBoundingClientRect();
+    const offsetX = touch.clientX - rect.left;
+    const offsetY = touch.clientY - rect.top;
+    
+    if (!isZoomed) {
+        // 拡大処理
+        image.style.transform = 'scale(3)';
+        image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+    } else {
+        // 縮小処理
+        image.style.transform = 'scale(1)';
+    }
+    
+    isZoomed = !isZoomed;
+    event.preventDefault();
+});
+
+// サイドウィンドウを開く関数
+function openWindow(event, url) {
+    const sideWindow = document.getElementById('side-window');
+    sideWindow.classList.add('open');
+    const links = sideWindow.querySelector('.link-content');
+    links.innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+}
+
+// サイドウィンドウを閉じる関数
+function closeWindow() {
+    const sideWindow = document.getElementById('side-window');
+    sideWindow.classList.remove('open');
+}
+
+// クリック処理（PCでの操作用）
+image.addEventListener('click', (event) => {
+    const sideWindow = document.getElementById('side-window');
+    if (sideWindow.classList.contains('open')) {
+        closeWindow();
+    } else {
+        const rect = image.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const offsetY = event.clientY - rect.top;
+        
+        if (!isZoomed) {
+            image.style.transform = 'scale(3)';
+            image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+        } else {
+            image.style.transform = 'scale(1)';
+        }
+        
+        isZoomed = !isZoomed;
+    }
+});
+</script>
+</body>
+</html>
