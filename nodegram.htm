@@ -142,7 +142,15 @@ let isZoomed = false;
 
 // タッチ開始時の処理
 image.addEventListener('touchstart', (event) => {
-    if (event.touches.length !== 1) return;  // シングルタッチのみ処理
+    // サイドウィンドウが開いている場合は、まずウィンドウを閉じる
+    const sideWindow = document.getElementById('side-window');
+    if (sideWindow.classList.contains('open')) {
+        closeWindow();
+        event.preventDefault();
+        return;  // これ以上の処理を行わない
+    }
+
+    if (event.touches.length !== 1) return;
     
     const touch = event.touches[0];
     const rect = image.getBoundingClientRect();
@@ -150,11 +158,9 @@ image.addEventListener('touchstart', (event) => {
     const offsetY = touch.clientY - rect.top;
     
     if (!isZoomed) {
-        // 拡大処理
         image.style.transform = 'scale(3)';
         image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
     } else {
-        // 縮小処理
         image.style.transform = 'scale(1)';
     }
     
@@ -181,20 +187,21 @@ image.addEventListener('click', (event) => {
     const sideWindow = document.getElementById('side-window');
     if (sideWindow.classList.contains('open')) {
         closeWindow();
-    } else {
-        const rect = image.getBoundingClientRect();
-        const offsetX = event.clientX - rect.left;
-        const offsetY = event.clientY - rect.top;
-        
-        if (!isZoomed) {
-            image.style.transform = 'scale(3)';
-            image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
-        } else {
-            image.style.transform = 'scale(1)';
-        }
-        
-        isZoomed = !isZoomed;
+        return;  // これ以上の処理を行わない
     }
+
+    const rect = image.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left;
+    const offsetY = event.clientY - rect.top;
+    
+    if (!isZoomed) {
+        image.style.transform = 'scale(3)';
+        image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+    } else {
+        image.style.transform = 'scale(1)';
+    }
+    
+    isZoomed = !isZoomed;
 });
 </script>
 </body>
