@@ -65,6 +65,13 @@
 		height: 3.0rem;
 	}
 
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
 	main {
 		position: relative;
 		left: 0;
@@ -74,7 +81,9 @@
 	}
 
 	.main_margin {
-		height: calc(3.5rem + 6.0vh);
+		display: block;
+		margin-top: 6.0rem;
+		margin-bottom: 5.5rem;
 	}
 
 	@media only screen and (orientation: landscape) {
@@ -84,20 +93,10 @@
 		header, footer {
 			display: none;
 		}
-		main {
-			top: 0;
-			left: 0;
-		}
 		.main_margin {
-			height: 1.0rem;
+			margin-top: 1.0rem;
+			margin-bottom: 1.0rem;
 		}
-	}
-
-	div {
-		position: relative;
-		margin: 0 auto;
-		width: 100%;
-		height: 100%;
 	}
 
 	.head_div {
@@ -159,13 +158,12 @@
 
 	ul {
 		margin: 0 auto;
-		width: 95%; 
-		margin-left: 2.1rem;
+		margin-left: 7%;
+		width: 90%; 
 	}
 
 	li {
 		margin-left: 1.4rem;
-		margin-right: 2.8rem;
 		margin-bottom: 1.0vh;
 	}
 
@@ -249,8 +247,7 @@
 	</header>
 
 	<main style="animation: slideIn 0.5s ease-in-out forwards;">
-	<div class="main_margin"></div>
-	<div class="toggle-main">
+	<div class="main_margin toggle-main">
 
 	<ul style="margin-bottom: 3.0rem;">
 		<li>
@@ -383,7 +380,6 @@
 	</ul>	<!--	-->
 
 	</div>
-	<div class="main_margin"></div>
 </main>
 
 <footer>
