@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>Terminal Information</title>
+	
+<style>
+
+	html { 3.3vw; }
+
+	@media (orientation: landscape) {
+		html { font-size: calc(3.3vh * 1.5); }
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: Helvetica Neue, Arial, sans-serif;
+		background-color: black;
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	.debug-info {
+		background-color: black;
+		color: white;
+		padding: 10px;
+	}
+
+	.button-container {
+		margin-left: 0.5rem;
+		gap: 1.0rem;
+		display: flex;
+	}
+
+	.back-button, .copy-button {
+		padding: 5px 10px;
+		background-color: dimgray;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		text-align: center;
+	}
+
+	.back-button:hover, .copy-button:hover {
+		background-color: white;
+	}
+</style>
+
+</head>
+
+<body>
+	<div class="debug-info" id="debugInfo"></div>
+    
+	<div class="button-container">
+		<button class="back-button" id="backButton">Back Prev</button>
+		<button class="copy-button" id="copyButton">Copy Info</button>
+	</div>
+
+	<script>
+
+		var debugInfo = document.getElementById('debugInfo');
+
+		var infoText = 'Width: ' + window.innerWidth + 'px&ensp;Height: ' + window.innerHeight + 'px&ensp;DPR: ' + window.devicePixelRatio
+			+ '<br>User Agent: ' + navigator.userAgent;
+
+		infoText = infoText.replace(/\)/g, ')</br>');
+		debugInfo.innerHTML = infoText;
+
+		document.getElementById('backButton').onclick = function() {
+			window.history.back();
+		};
+
+		document.getElementById('copyButton').onclick = function() {
+			navigator.clipboard.writeText(infoText.replace(/<br>/g, '\n').replace(/&ensp;/g, ' ')).then(function() {
+				alert('Copied information to clipboard');
+			}).catch(function(err) {
+				console.error('Failed to copy information:', err);
+			});
+		};
+
+		console.log('Back button and Copy button created and appended');
+
+	</script>
+
+</body>
+
+</html>
