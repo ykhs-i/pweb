@@ -1,0 +1,623 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>分乗車両</title>
+
+<style>
+
+	html {
+		font-size: 3.3vw;
+	}
+
+	@keyframes slideIn { /* Slide in from bottom */
+		0% {
+			transform: translateY(100%);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		width: 100%;
+		background-color: #FDFEFE;
+		font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	header, footer {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		background-color: #FDFEFE;
+		z-index: 1200;
+	}
+
+	header {
+		display: block;
+		top: 0;
+		height: 3.5rem;
+	}
+
+	footer {
+		display: block;
+		bottom: 0;
+		height: 3.0rem;
+	}
+
+	main {
+		position: relative;
+		left: 0;
+		min-height: 100vh;
+		width: 100%;
+		z-index: 1100;
+	}
+
+	.main_margin {
+		display: block;
+		margin-top: 6.0rem;
+		margin-bottom: 5.5rem;
+	}
+
+	@media only screen and (orientation: portrait) {
+		#hiddenDiv {
+			display: none;
+		}
+		#toggleDiv {
+			display: block;
+		}
+	}
+
+	@media only screen and (orientation: landscape) {
+		html {
+			font-size: calc(3.3vh * 2.0);
+		}
+		header, footer {
+			display: none;
+		}
+		.main_margin {
+			display: none;
+		}
+		#hiddenDiv {
+			display: block;
+		}
+		#toggleDiv {
+			display: none;
+		}
+	}
+
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.head_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80%;
+		height: 3.5rem;
+		border-bottom: 0.1rem solid #2020ff;
+	}
+
+	.foot_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 3.0rem;
+	}
+
+	a {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+
+	.padding_a {
+		padding-left: 3.0rem;
+		padding-right: 3.0rem;
+	}
+
+	.head_span {
+		font-size: 2.0rem;
+		padding: 0.5rem;
+		color: #202020;
+	}
+
+	.name_span {
+		font-size: 1.5rem;
+		color: #202020;
+	}
+
+	.numb_span {
+		font-size: 1.5rem;
+		color: #202020;
+	}
+
+	.foot1_span {
+		font-size: 1.7rem;
+		color: #202020;
+	}
+
+	.foot2_span {
+		font-size: 1.0rem;
+		color: #202020;
+	}
+
+	.foot3_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	.car_body {
+		position: relative;
+		margin: 0 auto;
+		width: 21.3rem;
+		height: 34.5rem;
+		border-radius: 3.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+		margin-bottom: 12.0vh;
+	}
+
+	.car_num {
+		position: absolute;
+		width: 9.0rem;
+		height: 4.0rem;
+		background-color: transpalent;
+		text-align: center;
+		z-index: 1150;
+	}	
+
+	.stearing_wheel {
+		position: absolute;
+		width:  6.0rem;
+		height: 2.0rem;
+		border-radius: 50%;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.car_seat_f {
+		position: absolute;
+		width: 9.9rem;
+		height: 8.0rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.back_rest_f {
+		position: absolute;
+		width: 9.9rem;
+		height: 2.6rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.car_seat_r {
+		position: absolute;
+		width: 20.1rem;
+		height: 8.0rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.back_rest_r {
+		position: absolute;
+		width: 20.1rem;
+		height: 2.6rem;
+		border-radius: 1.0rem;
+		background-color: #FDFEFE;
+		border: 0.2rem solid #808080;
+	}
+
+	.name_div {
+		position: absolute;
+		width: 9.4rem;
+		height: 1.7rem;
+		background-color: #FDFEFE;
+		text-align: center;
+	}	
+
+        #scrollBack {
+	}
+
+	.toggle-color1, .toggle-color2, .toggle-color3, .toggle-color4, .toggle-color5 {
+		color: #2020ff;
+	}
+
+	.toggle-img1, .toggle-img2, .toggle-img3, .toggle-img4, .toggle-img5 {
+		position: absolute;
+		width: 27.0rem;
+		top: calc(100% + 2.5rem);
+		right: -9.0rem;
+		opacity: 0;
+		z-index: 1300;
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	.hidden_div {
+		margin-top: 1.0rem;
+	}
+
+	.alt-image {
+		display: block;
+		margin: 0 auto;
+		margin-top: 5vh;
+		height: 90vh;
+		z-index: 1300;
+	}
+
+	.alt_p {
+		font-size: 1.0rem;
+		color: #202020;
+		background-color: transparent;
+		text-align: right;
+		margin-right: 2.0rem;
+		transform: translateY(-90%)
+	}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+	<div class="head_div">
+		<a class="padding_a" href="index.htm">
+			<span class="head_span">旅のしおり</span>
+		</a>
+	</div>
+
+</header>
+
+<main style=" animation: slideIn 0.5s ease-in-out forwards;">
+
+	<div class="main_margin"></div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<img class="alt-image" src="car1a.gif" alt="アクア">
+
+		<p class="alt_p">１号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info1" class="foot1_span toggle-color1">１号車</span>
+			<img class="toggle-img1" src="car1a.gif" alt="アクア">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name_div" style="top: 38%; left:  3%;"><span id="car1Mem1" class="name_span"></span></div>
+		<div class="name_div" style="top: 38%; left: 52%;"><span id="car1Mem2" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left:  3%;"><span id="car1Mem3" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left: 52%;"><span id="car1Mem4" class="name_span"></span></div>
+		<div class="name_div" style="top: 81.5%; left: 28%;"></div>
+		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">い 29-98</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img class="alt-image" src="car2b.gif" alt="シビック">
+
+		<p class="alt_p">２号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info2" class="foot1_span toggle-color2">２号車</span>
+			<img class="toggle-img2" src="car2b.gif" alt="シビック">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name_div" style="top: 38%; left:  3%;"><span id="car2Mem1" class="name_span"></span></div>
+		<div class="name_div" style="top: 38%; left: 52%;"><span id="car2Mem2" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left:  3%;"><span id="car2Mem3" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left: 52%;"><span id="car2Mem4" class="name_span"></span></div>
+		<div class="name_div" style="top: 81.5%; left: 28%;"></div>
+		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">ろ 48-35</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img class="alt-image" src="car3a.gif" alt="ソリオ">
+
+		<p class="alt_p">３号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info3" class="foot1_span toggle-color3">３号車</span>
+			<img class="toggle-img3" src="car3a.gif" alt="ソリオ">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name_div" style="top: 38%; left:  3%;"><span id="car3Mem1" class="name_span"></span></div>
+		<div class="name_div" style="top: 38%; left: 52%;"><span id="car3Mem2" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left:  3%;"><span id="car3Mem3" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left: 52%;"><span id="car3Mem4" class="name_span"></span></div>
+		<div class="name_div" style="top: 81.5%; left: 28%;"></div>
+		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">は 66-74</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img class="alt-image" src="car4a.gif" alt="フォレスター">
+
+		<p class="alt_p">４号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info4" class="foot1_span toggle-color4">４号車</span>
+			<img class="toggle-img4" src="car4a.gif" alt="フォレスター">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name_div" style="top: 38%; left:  3%;"><span id="car4Mem1" class="name_span"></span></div>
+		<div class="name_div" style="top: 38%; left: 52%;"><span id="car4Mem2" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left:  3%;"><span id="car4Mem3" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left: 52%;"><span id="car4Mem4" class="name_span"></span></div>
+		<div class="name_div" style="top: 81.5%; left: 28%;"></div>
+		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">に 83-14</span></div>
+	</div>
+
+	<div id="hiddenDiv" class="hidden_div">
+		<div class="main_margin"></div>
+		<img  class="alt-image" src="car5a.gif" alt="エルグランド">
+
+		<p class="alt_p">５号車</p>
+	</div>
+
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info5" class="foot1_span toggle-color5">５号車</span>
+			<img class="toggle-img5" src="car5a.gif" alt="エルグランド">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name_div" style="top: 38%; left:  3%;"><span id="car5Mem1" class="name_span"></span></div>
+		<div class="name_div" style="top: 38%; left: 52%;"><span id="car5Mem2" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left:  3%;"><span id="car5Mem3" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left: 52%;"><span id="car5Mem4" class="name_span"></span></div>
+		<div class="name_div" style="top: 81.5%; left: 28%;"></div>
+		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">ほ 96-48</span></div>
+	</div>
+
+	</div>
+</main>
+
+<footer>
+
+	<div id="scrollBack" class="foot_div">
+		<p>
+			<span class="foot1_span">&copy;</span>
+			<span class="foot2_span">昭和４９年度 妻鳥小学校 卒業生</span>
+			<span class="foot3_span"> 2025</span>
+		</p>
+	</div>
+
+</footer>
+
+<script>
+
+	function toggleInfo(toggleColor, toggleImg) {
+		if (toggleImg.style.opacity === '' || toggleImg.style.opacity === '0') {
+			toggleImg.style.opacity = '0.7';
+			document.getElementById(toggleColor).style.color = 'red';
+		} else {
+			toggleImg.style.opacity = '0';
+			document.getElementById(toggleColor).style.color = '#2020ff';
+		}
+	}
+
+	document.getElementById('toggle-info1').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info1', 
+			document.querySelector('.toggle-img1')
+		);
+	});
+
+	document.getElementById('toggle-info2').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info2', 
+			document.querySelector('.toggle-img2')
+		);
+	});
+
+	document.getElementById('toggle-info3').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info3', 
+			document.querySelector('.toggle-img3')
+		);
+	});
+
+	document.getElementById('toggle-info4').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info4', 
+			document.querySelector('.toggle-img4')
+		);
+	});
+
+	document.getElementById('toggle-info5').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info5', 
+			document.querySelector('.toggle-img5')
+		);
+	});
+
+
+
+	var footer = document.getElementById("scrollBack");
+
+	scrollBack.addEventListener('click', function() {
+		smoothScrollToTop();
+	});
+
+	function smoothScrollToTop() {
+		var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+		if (currentScroll > 0) {
+			window.requestAnimationFrame(smoothScrollToTop);
+			window.scrollTo(0, currentScroll - currentScroll / 8);
+		}
+	}
+
+
+
+	let savedScrollPositionPercentage = 0;
+	const offset = 5; //set offset as px
+	
+	function saveScrollPosition() {
+		const documentHeight = document.documentElement.scrollHeight;
+		const viewportHeight = window.innerHeight;
+		const scrollPosition = window.scrollY;
+		savedScrollPositionPercentage = (scrollPosition / (documentHeight - viewportHeight)) * 100;
+
+	}
+
+	window.addEventListener('scroll', saveScrollPosition);
+
+	window.addEventListener('resize', () => {
+		if (window.innerHeight < window.innerWidth) {
+			const documentHeight = document.documentElement.scrollHeight;
+			const viewportHeight = window.innerHeight;
+			const targetScrollPosition = (savedScrollPositionPercentage / 100) * (documentHeight - viewportHeight) + offset;
+			window.scrollTo(0, targetScrollPosition);
+		}
+	});
+
+	window.addEventListener('orientationchange', () => {
+		if (window.innerHeight < window.innerWidth) {
+			const documentHeight = document.documentElement.scrollHeight;
+			const viewportHeight = window.innerHeight;
+			const targetScrollPosition = (savedScrollPositionPercentage / 100) * (documentHeight - viewportHeight) + offset;
+			window.scrollTo(0, targetScrollPosition);
+		}
+	});
+
+
+
+	const car1List = [
+		'	田辺智加	',
+		'	所ジョージ	',
+		'	松子ＤＸ	',
+		'	柳原可奈子	'
+	];
+
+	const car2List = [
+		'	滝沢清子	',
+		'	聖母游輔	',
+		'	池崎陽光	',
+		'	仲間玲奈	'
+	];
+
+	const car3List = [
+		'	湊屋のぞみ	',
+		'	渡瀬正直	',
+		'	深谷天祐	',
+		'	荒道恵	'
+	];
+
+	const car4List = [
+		'	野口英世	',
+		'	樋口一葉	',
+		'	紫式部		',
+		'	福沢諭吉	'
+	];
+
+	const car5List = [
+		'	米津玄枝	',
+		'	廣末涼悟	',
+		'	中野美奈男	',
+		'	長友佑乃	'
+	];
+
+	document.getElementById('car1Mem1').textContent = car1List[0];
+	document.getElementById('car1Mem2').textContent = car1List[1];
+	document.getElementById('car1Mem3').textContent = car1List[2];
+	document.getElementById('car1Mem4').textContent = car1List[3];
+
+	document.getElementById('car2Mem1').textContent = car2List[0];
+	document.getElementById('car2Mem2').textContent = car2List[1];
+	document.getElementById('car2Mem3').textContent = car2List[2];
+	document.getElementById('car2Mem4').textContent = car2List[3];
+
+	document.getElementById('car3Mem1').textContent = car3List[0];
+	document.getElementById('car3Mem2').textContent = car3List[1];
+	document.getElementById('car3Mem3').textContent = car3List[2];
+	document.getElementById('car3Mem4').textContent = car3List[3];
+
+	document.getElementById('car4Mem1').textContent = car4List[0];
+	document.getElementById('car4Mem2').textContent = car4List[1];
+	document.getElementById('car4Mem3').textContent = car4List[2];
+	document.getElementById('car4Mem4').textContent = car4List[3];
+
+	document.getElementById('car5Mem1').textContent = car5List[0];
+	document.getElementById('car5Mem2').textContent = car5List[1];
+	document.getElementById('car5Mem3').textContent = car5List[2];
+	document.getElementById('car5Mem4').textContent = car5List[3];
+
+/* */
+
+</script>
+
+</body>
+
+</html>
