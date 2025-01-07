@@ -152,7 +152,6 @@
 <body>
 
 <div class="hidden_img">
-<button id="fullscreenSpan">Full Screen</button>
 	<iframe 
 		src="nodegram.htm"
 		frameborder="0"
@@ -178,18 +177,6 @@
 </main>
 
 <script>
-        document.getElementById('fullscreenBtn').addEventListener('click', function() {
-            var elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { // Firefox
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { // IE/Edge
-                elem.msRequestFullscreen();
-            }
-        });
 
 </script>
 
