@@ -162,7 +162,9 @@
 	<script>
 		const image = document.querySelector('.base_img');
 		let isZoomed = false;
+let touchHappened = false;
 		image.addEventListener('touchstart', (event) => {
+touchHappened = true;
     			const sideWindow = document.getElementById('side-window');
 			if (sideWindow.classList.contains('open')) {
 				closeWindow();
@@ -179,14 +181,15 @@
 				image.style.transform = 'scale(3)';
 				image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
 				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'none');
-				document.querySelector('.note_p').style.display = 'none';
+				document.querySelectorAll('.note_p').forEach(note_p => note_p.style.display = 'none');
 			} else {
 				image.style.transform = 'scale(1)';
 				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'block');
-				document.querySelector('.note_p').style.display = 'block';
+				document.querySelectorAll('.note_p').forEach(note_p => note_p.style.display = 'block');
 			}
 			isZoomed = !isZoomed;
 			event.preventDefault();
+setTimeout(() => { touchHappened = false; }, 500);
 		});
 
 		function openWindow(event, url) {
@@ -203,6 +206,7 @@
 
 
 		image.addEventListener('click', (event) => {
+if (touchHappened) return;
 			const sideWindow = document.getElementById('side-window');
 			if (sideWindow.classList.contains('open')) {
 				closeWindow();
