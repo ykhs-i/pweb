@@ -141,8 +141,8 @@
 			<p>再タップ (ピンチイン) ➡ 縮小</p>
 		</div>
 		<div class="note_p" style="left: 0;">
-			<p>：</p>
-			<p>▼</p>
+			<p>▲</p>
+			<p style="transform: translateY(-0.3rem)">：</p>
 		</div>
 
 		<div id="side-window" class="side-window">
@@ -215,11 +215,11 @@
 				image.style.transform = 'scale(3)';
 				image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
 				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'none');
-				document.querySelector('.note_p').style.display = 'none';
+				document.querySelectorAll('.note_p').forEach(note_p => note_p.style.display = 'none');
 			} else {
 				image.style.transform = 'scale(1)';
-				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'block'); // overlayを表示
-				document.querySelector('.note_p').style.display = 'block';
+				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'block');
+				document.querySelectorAll('.note_p').forEach(note_p => note_p.style.display = 'block');
 			}
 			isZoomed = !isZoomed;
 		});
