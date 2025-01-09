@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<title>School Song</title>
+<title>校歌</title>
 
 <style>
 
@@ -49,12 +49,12 @@
 	.emblem {
 		position: fixed;
 		top: 0;
-
 		left: 0;
-		right: 0;
-		bottom: 0;
+		height: 100vh;
+		width: 100%;
+		margin-top: 3.5rem;
 		background-image: url('memblem5.svg');
-		background-size: cover;
+		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		z-index: -1;
@@ -88,7 +88,8 @@
 	}
 
 	.main_margin {
-		height: 5.5rem;
+		margin-top: 5.5rem;
+		margin-bottom: 7.0rem;
 	}
 
 	@media only screen and (orientation: landscape) {
@@ -104,7 +105,8 @@
 			left: 0;
 		}
 		.main_margin {
-			height: 1.0rem;
+			margin-top: 1.0rem;
+			margin-bottom: 1.0rem;
 		}
 }
 
@@ -212,7 +214,6 @@
 
 <div class="emblem"></div>
 
-
 <header>
 
 	<div class="head_div">
@@ -225,7 +226,7 @@
 
 <main style="animation: fadeIn 0.5s ease-in-out forwards;">
 
-	<div class="main_margin"></div>
+	<div class="main_margin">
 
 	<ol>
 		<li>
@@ -252,13 +253,9 @@
 			<p><span class="lyrics_span"><ruby>妻鳥<rt>めんどり</rt></ruby>、<ruby>妻鳥<rt>めんどり</rt></ruby>、<ruby>小学生<rt>しょうがくせい</rt></ruby></span></p>
 		</li>
 	</ol>
-	
 	</div>
-
 </main>
-
 <footer>
-
 	<div id="scrollBack" class="foot_div">
 		<p>
 			<span class="foot1_span">&copy;</span>
