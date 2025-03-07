@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>旅行地図</title>
+	<style>
+		html { font-size: 3.3vw; }
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 100vh;
+			width: 100%;
+			background-color: #FDFEFE;
+			font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+			user-select: none;
+			touch-action: pan-y;
+			overflow-y: scroll;
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+		}
+
+		body::-webkit-scrollbar {
+			display: none;
+		}
+
+		header, footer {
+			position: fixed;
+			left: 0;
+			width: 100%;
+			background-color: #FDFEFE;
+			z-index: 1200;
+		}
+
+		header {
+			top: 0;
+			height: 3.5rem;
+		}
+
+		main {
+			display: block;
+			position: relative;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			margin: 0 auto;
+		}
+
+		footer {
+			bottom: 0;
+			height: 3.0rem;
+		}
+
+		div {
+			position: relative;
+			margin: 0 auto;
+			width: 100%;
+			height: 100%;
+		}
+
+		.head_div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 80%;
+			height: 3.5rem;
+			border-bottom: 0.1rem solid #2020ff;
+		}
+
+		.foot_div {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 3.0rem;
+		}
+
+		a {
+			display: block;
+			margin: 0 auto;
+			text-align: center;
+			text-decoration: none;
+			cursor: pointer;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+		}
+
+		.padding_a {
+			padding-left: 3.0rem;
+			padding-right: 3.0rem;
+		}
+
+		.head_span {
+			font-size: 2.0rem;
+			color: #202020;
+		}
+
+		.foot1_span {
+			font-size: 1.7rem;
+			color: #202020;
+		}
+
+		.foot2_span {
+			font-size: 1.0rem;
+			color: #202020;
+		}
+
+		.foot3_span {
+			font-size: 1.4rem;
+			color: #202020;
+		}
+
+		.content {
+			cursor: pointer;
+			position: relative;
+			margin: 0;
+			display: flex;
+		}
+
+		.link_div {
+			position: relative;
+			display: flex;
+			margin: 0 auto;
+			width: 100%;
+			height: 100vh;
+			justify-content: center;
+			align-items: center;
+			aspect-ratio: calc( 2256 / 1568 ); 
+		}
+
+		.base_img {
+			display: block;
+			position: relative;
+			margin: 0 auto;
+			width: 95vw;
+			height: auto;
+			object-fit: contain;
+			transition: transform 0.5s ease, transform-origin 0s ease;
+		}
+
+		.side-window {
+			position: fixed;
+			top: 0;
+			left: -50%;
+			width: 50%;
+			height: 100vh;
+			background-color: rgba(255, 255, 255, 0.9);
+			box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+			transition: left 0.3s ease;
+			z-index: 1200;
+			padding: 1rem;
+			overflow-y: auto;
+		}
+
+		.side-window.open {
+			left: 0;
+		}
+
+		.close-btn {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 1.5rem;
+			cursor: pointer;
+		}
+
+		.link-content {
+			margin-top: 20px;
+		}
+
+		.link-content a {
+			display: block;
+			margin-bottom: 10px;
+			font-size: 1rem;
+			color: #007BFF;
+			text-decoration: none;
+			word-wrap: break-word;
+		}
+
+		.link-content a:hover {
+			text-decoration: underline;
+		}
+
+		.overlay {
+			display: block;
+			position: absolute;
+			background: rgba(0, 0, 0, 0.01);
+			border: none;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="head_div">
+			<a class="padding_a" href="index.htm">
+				<span class="head_span">旅のしおり</span>
+			</a>
+		</div>
+	</header>
+
+	<main style="animation: fadeIn 0.5s ease-in-out forwards;">
+		<div class="content">
+			<div class="link_div">
+				<img class="base_img" src="diagram7.svg" alt="高知市内地図">
+				<div class="overlay" style="top:  9.6%; left: 92.25%; width: 8.4%; height: 12%;" onclick="openWindow(event, 'https://kochi-tabi.jp/search_spot_sightseeing.html?id=62')"></div>
+				<div class="overlay" style="top: 28.6%; left:  0.5%; width: 8.4%; height: 12%;" onclick="openWindow(event, 'https://kochi-tabi.jp/search_spot.html?id=97')"></div>
+				<div class="overlay" style="top: 42.9%; left:  5.3%; width: 8.4%; height: 12%;" onclick="openWindow(event, 'https://kochi-tabi.jp/search_spot_sightseeing.html?id=8113')"></div>
+				<div class="overlay" style="top: 50.5%; left: 24.1%; width: 8.4%; height: 12%;" onclick="openWindow(event, 'https://kochi-tabi.jp/search_spot.html?id=37')"></div>
+				<div class="overlay" style="top: 87.2%; left: 22.4%; width: 8.4%; height: 12%;" onclick="openWindow(event, 'https://kochi-tabi.jp/search_spot_sightseeing.html?id=702')"></div>
+			</div>
+
+			<div id="side-window" class="side-window">
+				<span class="close-btn" onclick="closeWindow()">×</span>
+				<div class="link-content">
+					<a href="https://kochi-tabi.jp/search_spot_sightseeing.html?id=62" target="_blank">龍河洞 / こうち旅ネット</a>
+					<a href="https://kochi-tabi.jp/search_spot.html?id=97" target="_blank">高知城 / こうち旅ネット</a>
+					<a href="https://kochi-tabi.jp/search_spot_sightseeing.html?id=8113" target="_blank">三翠園 / こうち旅ネット</a>
+					<a href="https://kochi-tabi.jp/search_spot.html?id=37" target="_blank">牧野植物園 / こうち旅ネット</a>
+					<a href="https://kochi-tabi.jp/search_spot_sightseeing.html?id=702" target="_blank">桂浜 / こうち旅ネット</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<div id="scrollBack" class="foot_div">
+			<p>
+				<span class="foot1_span">&copy;</span>
+				<span class="foot2_span">昭和４９年度 妻鳥小学校 卒業生</span>
+				<span class="foot3_span"> 2025</span>
+			</p>
+		</div>
+	</footer>
+
+	<script>
+		var footer = document.getElementById("scrollBack");
+
+		scrollBack.addEventListener('click', function() {
+			smoothScrollToTop();
+		});
+
+		function smoothScrollToTop() {
+			var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+			if (currentScroll > 0) {
+				window.requestAnimationFrame(smoothScrollToTop);
+				window.scrollTo(0, currentScroll - currentScroll / 8);
+			}
+		}
+
+
+
+		const image = document.querySelector('.base_img');
+		let isZoomed = false;
+		let touchHappened = false;
+image.addEventListener('click', (event) => {
+    if (touchHappened) return;
+    
+    const sideWindow = document.getElementById('side-window');
+    if (sideWindow.classList.contains('open')) {
+        closeWindow();
+        return;
+    }
+    
+    // ズーム処理
+    handleZoom(event);
+});
+
+// 共通のズーム処理関数
+function handleZoom(event) {
+    const rect = image.getBoundingClientRect();
+    const offsetX = (event.clientX || event.touches[0].clientX) - rect.left;
+    const offsetY = (event.clientY || event.touches[0].clientY) - rect.top;
+    
+    if (!isZoomed) {
+        // 拡大処理
+        image.style.transform = 'scale(3)';
+        image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+        document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'none');
+        // note_p要素が存在するか確認してから処理
+        const noteP = document.querySelector('.note_p');
+        if (noteP) noteP.style.display = 'none';
+    } else {
+        // 縮小処理 - 必ず元の状態に戻る
+        image.style.transform = '';
+        image.style.transformOrigin = '';
+        document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'block');
+        // note_p要素が存在するか確認してから処理
+        const noteP = document.querySelector('.note_p');
+        if (noteP) noteP.style.display = 'block';
+    }
+    
+    isZoomed = !isZoomed;
+}
+
+// touchstartイベントも同様に修正
+image.addEventListener('touchstart', (event) => {
+    touchHappened = true;
+    const sideWindow = document.getElementById('side-window');
+    if (sideWindow.classList.contains('open')) {
+        closeWindow();
+        event.preventDefault();
+        return;
+    }
+    if (event.touches.length !== 1) return;
+    
+    // ズーム処理を共通関数で行う
+    handleZoom(event);
+    
+    event.preventDefault();
+    setTimeout(() => { touchHappened = false; }, 500);
+});
+
+		function openWindow(event, url) {
+			const sideWindow = document.getElementById('side-window');
+			sideWindow.classList.add('open');
+			const links = sideWindow.querySelector('.link-content');
+			const linkInfo = {
+				'https://kochi-tabi.jp/search_spot_sightseeing.html?id=62': '龍河洞 / こうち旅ネット',
+				'https://kochi-tabi.jp/search_spot.html?id=97': '高知城 / こうち旅ネット',
+				'https://kochi-tabi.jp/search_spot_sightseeing.html?id=8113': '三翠園 / こうち旅ネット',
+				'https://kochi-tabi.jp/search_spot.html?id=37': '牧野植物園 / こうち旅ネット',
+				'https://kochi-tabi.jp/search_spot_sightseeing.html?id=702': '桂浜 / こうち旅ネット'
+			};
+			links.innerHTML = `
+				<div style="margin-bottom: 1rem;">
+					<div style="margin-bottom: 0.5rem;">${linkInfo[url] || 'リンク先'}</div>
+					<a href="${url}" target="_blank">${url}</a>
+				</div>
+			`;
+		}
+
+		function closeWindow() {
+			const sideWindow = document.getElementById('side-window');
+			sideWindow.classList.remove('open');
+		}
+
+
+		image.addEventListener('click', (event) => {
+			if (touchHappened) return;
+			const sideWindow = document.getElementById('side-window');
+			if (sideWindow.classList.contains('open')) {
+				closeWindow();
+				return;
+			}
+			const rect = image.getBoundingClientRect();
+			const offsetX = event.clientX - rect.left;
+			const offsetY = event.clientY - rect.top;
+
+			if (!isZoomed) {
+				image.style.transform = 'scale(3)';
+				image.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'none');
+				document.querySelector('.note_p').style.display = 'none';
+			} else {
+				image.style.transform = 'scale(1)';
+				document.querySelectorAll('.overlay').forEach(overlay => overlay.style.display = 'block');
+				document.querySelector('.note_p').style.display = 'block';
+			}
+			isZoomed = !isZoomed;
+		});
+
+	</script>
+</body>
+</html>
