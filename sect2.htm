@@ -174,7 +174,7 @@
 	#scrollBack {
 	}
 
-	.toggle-color1, .toggle-color2, .toggle-color3, .toggle-color4, .toggle-color5 {
+	.toggle-color1, .toggle-color2, .toggle-color3, .toggle-color4, .toggle-color5, .toggle-color6 {
 		color: #2020ff;
 	}
 
@@ -182,7 +182,7 @@
 		color: red;
 	}
 
-	.toggle-box1, .toggle-box2, .toggle-box3, .toggle-box4, .toggle-box5 {
+	.toggle-box1, .toggle-box2, .toggle-box3, .toggle-box4, .toggle-box5, .toggle-box6 {
 		position: absolute;
 		height: 7.7rem;
 		width: 24.2rem;
@@ -267,7 +267,9 @@
 					<span class="info_span">：１５時００分</span>
 				</div>
 			</p>
-			<p style="padding-top: 0.2rem;"><span class="info_span" style="color: #b0b0b0;">　自由時間&nbsp;＝２時間００分</span></p>
+			<p style="padding-top: 0.2rem;">
+				<span class="info_span" style="color: #b0b0b0;">　自由時間&nbsp;＝２時間００分</span>
+			</p>
 			<p style="padding-top: 0.2rem;"><span class="info_span">宴　会：１７時００分～</span></p>
 			<p style="margin-left: 6.7rem;"><span class="foot2_span">・食事</span></p>
 			<p style="margin-left: 6.7rem;"><span class="foot2_span">・スライドショー</span></p>
@@ -278,21 +280,29 @@
 	<ul style="margin-bottom: 3.0rem;">
 		<li>
 			<p><span class="info_span">２日目　-　４月２０日</span></p>
+			<p style="padding-top: 0.2rem;">
+				<span class="info_span" style="color: #b0b0b0;">　自由時間&nbsp;＝２時間００分</span>
+					<span id="toggle-info5" class="foot3_span toggle-color5" style="font-weight:bold;">&nbsp;※</span>
+					<div class="toggle-box5" style="right: 1.0rem;">
+						<span class="info_span" style="color:#FDFEFE;">
+							朝市場散策<br>
+							（参加は任意）
+						</span>
+					</div>
+			</p>
 			<p style="padding-top: 0.7rem;">
 				<span class="info_span">出　発&nbsp;：１０時００分</span>
 			</p>
 			<p style="padding-top: 0.2rem;">
-				<div>
-					<span id="toggle-info5" class="info_span toggle-color5">桂　浜</span>
-					<div class="toggle-box5">
-						<span class="info_span" style="color:#FDFEFE;">
-							〒&nbsp;７８１-０２６２<br>
-							高知市浦戸　９<br>
-							０８８-８４１-４１４０
-						</span>
-					</div>
-					<span class="info_span">：１０時３０分</span>
+				<span id="toggle-info6" class="info_span toggle-color6">桂　浜</span>
+				<div class="toggle-box6">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７８１-０２６２<br>
+						高知市浦戸　９<br>
+						０８８-８４１-４１４０
+					</span>
 				</div>
+				<span class="info_span">：１０時３０分</span>
 			</p>
 			<p style="padding-top: 0.2rem;"><span class="info_span" style="color: #b0b0b0;">　　昼　食&nbsp;＝３０分</span></p>
 			<p style="padding-top: 0.2rem;"><span class="info_span">解　散&nbsp;：１２時００分</span></p>
@@ -345,7 +355,7 @@
 		}
 	}
 
-	['toggle-info1', 'toggle-info2', 'toggle-info3', 'toggle-info4', 'toggle-info5'].forEach((id, index) => {
+	['toggle-info1', 'toggle-info2', 'toggle-info3', 'toggle-info4', 'toggle-info5', 'toggle-info6'].forEach((id, index) => {
 		document.getElementById(id).addEventListener('click', function() {
 			toggleInfo(
 				id,
