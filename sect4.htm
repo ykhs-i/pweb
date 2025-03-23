@@ -420,7 +420,31 @@
 		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">５５-２５</span></div>
 	</div>
 
+	<div id="hiddenDiv" class="hidden_div">
+		<p class="alt-nam">マツダ　ＭＡＺＤＡ３</p>
+		<img class="alt-image" src="Mazda3_F4.png" alt="スイフト">
+		<p class="alt-num">５号車</p>
+	</div>
 
+	<div class="car_body" id="toggleDiv">
+		<div class="car_num" style="top: 7%; left:28%;">
+			<span id="toggle-info5" class="foot1_span toggle-color4">５号車</span>
+			<img class="toggle-img5" src="Mazda3_F4.png" alt="スイフト">
+		</div>
+		<div class="stearing_wheel" style="top: 20%; left: 60%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 2%;"></div>
+		<div class="car_seat_f" style="top: 30%; left: 51%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 2%;"></div>
+		<div class="back_rest_f" style="top: 48%; left: 51%;"></div>
+		<div class="car_seat_r" style="top: 62%; left: 2%;"></div>
+		<div class="back_rest_r" style="top: 81%; left: 2%;"></div>
+		<div class="name_div" style="top: 38%; left:  3%;"><span id="car4Mem1" class="name_span"></span></div>
+		<div class="name_div" style="top: 38%; left: 52%;"><span id="car4Mem2" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left:  3%;"><span id="car4Mem3" class="name_span"></span></div>
+		<div class="name_div" style="top: 71%; left: 52%;"><span id="car4Mem4" class="name_span"></span></div>
+		<div class="name_div" style="top: 81.5%; left: 28%;"><span id="car4Mem5" class="name_span"></span></div>
+		<div class="name_div" style="top: 91%; left: 27%;"><span class="numb_span">５５-２５</span></div>
+	</div>
 	</div>
 </main>
 
@@ -473,6 +497,13 @@
 		toggleInfo(
 			'toggle-info4', 
 			document.querySelector('.toggle-img4')
+		);
+	});
+
+	document.getElementById('toggle-info5').addEventListener('click', function() {
+		toggleInfo(
+			'toggle-info4', 
+			document.querySelector('.toggle-img5')
 		);
 	});
 
@@ -559,6 +590,14 @@
 		'	夏目漱石	'
 	];
 
+	const car5List = [
+		'	米津玄枝	',
+		'	高橋久和	',
+		'	中野美奈男	',
+		'	長友佑乃	',
+		'	廣末涼悟	'
+	];
+
 	document.getElementById('car1Mem1').textContent = car1List[0];
 	document.getElementById('car1Mem2').textContent = car1List[1];
 	document.getElementById('car1Mem3').textContent = car1List[2];
@@ -582,6 +621,12 @@
 	document.getElementById('car4Mem3').textContent = car4List[2];
 	document.getElementById('car4Mem4').textContent = car4List[3];
 	document.getElementById('car4Mem5').textContent = car4List[4];
+
+	document.getElementById('car5Mem1').textContent = car5List[0];
+	document.getElementById('car5Mem2').textContent = car5List[1];
+	document.getElementById('car5Mem3').textContent = car5List[2];
+	document.getElementById('car5Mem4').textContent = car5List[3];
+	document.getElementById('car5Mem5').textContent = car5List[4];
 
 /* */
 
