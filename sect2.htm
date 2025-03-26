@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>旅行日程</title>
+
+<style>
+
+	html {
+		font-size: 3.3vw;
+	}
+
+	@keyframes slideIn {
+		0% {
+			transform: translateY(100%);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		width: 100%;
+		background-color: #FDFEFE;
+		font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	header, footer {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		background-color: #FDFEFE;
+		z-index: 1200;
+	}
+
+	header {
+		top: 0;
+		height: 3.5rem;
+	}
+
+	footer {
+		bottom: 0;
+		height: 3.0rem;
+	}
+
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	main {
+		position: relative;
+		left: 0;
+		min-height: 100vh;
+		width: 100%;
+		z-index: 1100;
+	}
+
+	.main_margin {
+		display: block;
+		margin-top: 6.0rem;
+		margin-bottom: 7.0rem;
+	}
+
+	@media only screen and (orientation: landscape) {
+		html {
+			font-size: calc(3.3vh * 1.5);
+		}
+		header, footer {
+			display: none;
+		}
+		.main_margin {
+			margin-top: 1.0rem;
+			margin-bottom: 1.0rem;
+		}
+	}
+
+	.head_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80%;
+		height: 3.5rem;
+		border-bottom: 0.1rem solid #2020ff;
+	}
+
+	.foot_div {
+		display: flex;
+		height: 3.0rem;
+		align-items: center;
+		justify-content: center;
+	}
+
+	a {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+
+	.padding_a {
+		padding-left: 3.0rem;
+		padding-right: 3.0rem;
+	}
+
+	.head_span {
+		font-size: 2.0rem;
+		padding: 0.5rem;
+		color: #202020;
+	}
+
+	.info_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	.foot1_span {
+		font-size: 1.7rem;
+		color: #202020;
+	}
+
+	.foot2_span {
+		font-size: 1.0rem;
+		color: #202020;
+	}
+
+	.foot3_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	ul {
+		margin: 0 auto;
+		margin-left: 15%;
+		width: 85%; 
+	}
+
+	li {
+		margin-left: 1.4rem;
+		margin-bottom: 1.0vh;
+	}
+
+	.tab {
+		margin-left: 1.4rem;
+	}
+
+	#scrollBack {
+	}
+
+	.toggle-color1, .toggle-color2, .toggle-color3, .toggle-color4, .toggle-color5, .toggle-color6 {
+		color: #2020ff;
+	}
+
+	.red-text {
+		color: red;
+	}
+
+	.toggle-box1, .toggle-box2, .toggle-box3, .toggle-box4, .toggle-box5, .toggle-box6 {
+		position: absolute;
+		height: 7.7rem;
+		width: 24.2rem;
+		padding: 0.4rem;
+		right: 1.0rem;
+		border-radius: 1.0rem;
+		background-color: #00B0F0;
+		visibility: hidden;
+		z-index: 1300;
+		transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+	}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="page-content" style="display:none;">
+
+<header>
+	<div class="head_div">
+		<a class="padding_a" href="index.htm">
+			<span class="head_span">旅のしおり</span>
+		</a>
+	</div>
+</header>
+
+<main style="animation: slideIn 0.5s ease-in-out forwards;">
+	<div class="main_margin">
+
+	<ul style="margin-bottom: 3.0rem;">
+		<li>
+			<p><span class="info_span">１日目　-　４月１９日</span></p>
+			<p>
+				<span class="info_span">集　合&nbsp;：　９時４０分</span>
+				<span id="toggle-info1" class="foot3_span toggle-color1" style="font-weight:bold;">&nbsp;※</span>
+					<div class="toggle-box1" style="right: 1.0rem;">
+						<span class="info_span" style="color:#FDFEFE;">
+							〒&nbsp;７９９-０１１３<br>
+							四国中央市妻鳥町<br>
+							佐藤一久&nbsp;君宅
+						</span>
+					</div>
+			</p>
+			<p style="padding-top: 0.2rem;"><span class="info_span">出　発&nbsp;：１０時００分</span></p>
+			<p style="padding-top: 0.2rem;">
+				<div>
+					<span id="toggle-info2" class="info_span toggle-color2">龍河洞</span>
+					<div class="toggle-box2">
+						<span class="info_span" style="color:#FDFEFE;">
+							〒&nbsp;７８１-６２３６<br>
+							香美市土佐山田町逆川１４２４<br>
+							０８８７-５３-２１４４
+						</span>
+					</div>
+					<span class="info_span">：１１時３０分</span>
+				</div>
+			</p>
+			<p style="padding-top: 0.2rem;"><span class="info_span" style="color: #b0b0b0;">　　昼　食&nbsp;＝３０分</span></p>
+			<p style="padding-top: 0.2rem;">
+				<div>
+					<span id="toggle-info3" class="info_span toggle-color3">植物園</span>
+					<div class="toggle-box3">
+						<span class="info_span" style="color:#FDFEFE;">
+							〒&nbsp;７８０-０８６２<br>
+							高知市五台山４２００-６<br>
+							０８８-８８２-２６０１
+						</span>
+					</div>
+					<span class="info_span">：１３時３０分</span>
+				</div>
+			</p>
+			<p style="padding-top: 0.2rem;">
+				<div>
+					<span id="toggle-info4" class="info_span toggle-color4">三翠園</span>
+					<div class="toggle-box4">
+						<span class="info_span" style="color:#FDFEFE;">
+							〒&nbsp;７８１-８１２５<br>
+							高知市鷹匠町&nbsp;１-３-３５<br>
+							０８８-８２２-０１３１
+						</span>
+					</div>
+					<span class="info_span">：１５時００分</span>
+				</div>
+			</p>
+			<p style="padding-top: 0.2rem;">
+				<span class="info_span" style="color: #b0b0b0;">　自由時間&nbsp;＝２時間００分</span>
+			</p>
+			<p style="padding-top: 0.2rem;"><span class="info_span">宴　会：１７時００分～</span></p>
+			<p style="margin-left: 6.7rem;"><span class="foot2_span">・夕　食</span></p>
+			<p style="margin-left: 6.7rem;"><span class="foot2_span">・スライドショー</span></p>
+			<p style="margin-left: 6.7rem;"><span class="foot2_span">・ミニゲーム</span></p>
+		</li>
+	</ul>
+
+	<ul style="margin-bottom: 3.0rem;">
+		<li>
+			<p><span class="info_span">２日目　-　４月２０日</span></p>
+			<p style="padding-top: 0.7rem;">
+				<span class="info_span" style="color: #b0b0b0;">　自由時間&nbsp;＝２時間００分</span>
+					<span id="toggle-info5" class="foot3_span toggle-color5" style="font-weight:bold;">&nbsp;※</span>
+					<div class="toggle-box5" style="right: 1.0rem;">
+						<span class="info_span" style="color:#FDFEFE;">
+							日曜市散策<br>
+							（参加は任意）
+						</span>
+					</div>
+			</p>
+			<p style="padding-top: 0.2rem;">
+				<span class="info_span">出　発&nbsp;：１０時００分</span>
+			</p>
+			<p style="padding-top: 0.2rem;">
+				<div>
+					<span id="toggle-info6" class="info_span toggle-color6">桂　浜</span>
+					<div class="toggle-box6">
+						<span class="info_span" style="color:#FDFEFE;">
+							〒&nbsp;７８１-０２６２<br>
+							高知市浦戸&nbsp;９<br>
+							０８８-８４１-４１４０
+						</span>
+					</div>
+					<span class="info_span">：１０時３０分</span>
+				</div>
+			</p>
+			<p style="padding-top: 0.2rem;"><span class="info_span" style="color: #b0b0b0;">　　昼　食&nbsp;＝３０分</span></p>
+			<p style="padding-top: 0.2rem;"><span class="info_span">解　散&nbsp;：１２時００分</span></p>
+		</li>
+
+	</ul>
+	</div>	<!--	-->
+
+</main>
+
+<footer>
+	<div id="scrollBack" class="foot_div">
+		<p class="toggle-footer">
+			<span class="foot1_span">&copy;</span>
+			<span class="foot2_span">昭和４９年度 妻鳥小学校 卒業生</span>
+			<span class="foot3_span"> 2025</span>
+		</p>
+	</div>
+
+</footer>
+
+</div> <!-- page-content div の閉じタグ -->
+
+<div id="login-message" style="display:block; margin-top: 2.0rem;">
+	<a class="head_span" style="color: #2020ff;" href="index.htm">
+		<span class="menu_span">表紙から入ってつか</span>
+	</a>
+</div>
+
+<script>
+
+	function checkPageAuth() {
+		if (sessionStorage.getItem('auth') === 'true') {
+			document.getElementById("page-content").style.display = "block";
+			document.getElementById("login-message").style.display = "none";
+		} else {
+			document.getElementById("page-content").style.display = "none";
+			document.getElementById("login-message").style.display = "block";
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		checkPageAuth();
+	});
+
+
+
+	var footer = document.getElementById("scrollBack");
+
+	scrollBack.addEventListener('click', function() {
+		smoothScrollToTop();
+	});
+
+	function smoothScrollToTop() {
+		var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+		if (currentScroll > 0) {
+			window.requestAnimationFrame(smoothScrollToTop);
+			window.scrollTo(0, currentScroll - currentScroll / 8);
+		}
+	}
+
+
+
+
+	function toggleInfo(toggleColor, toggleBox) {
+		if (toggleBox.style.opacity === '' || toggleBox.style.opacity === '0') {
+			toggleBox.style.opacity = '0.85';
+			toggleBox.style.visibility = 'visible';
+			document.getElementById(toggleColor).style.color = 'red';
+		} else {
+			toggleBox.style.opacity = '0';
+			toggleBox.style.visibility = 'hidden';
+			document.getElementById(toggleColor).style.color = '#2020ff';
+		}
+	}
+
+	['toggle-info1', 'toggle-info2', 'toggle-info3', 'toggle-info4', 'toggle-info5', 'toggle-info6'].forEach((id, index) => {
+		document.getElementById(id).addEventListener('click', function() {
+			toggleInfo(
+				id,
+				document.querySelector(`.toggle-box${index + 1}`)
+			);
+		});
+	});
+
+</script>
+
+</body>
+
+</html>
