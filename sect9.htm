@@ -143,12 +143,6 @@
 		list-style-type: fullwidth-numbers;
 	}
 
-	@counter-style fullwidth-numbers {
-		system: numeric;
-		symbols: '０' '一' '二' '三' '４' '５' '６' '７' '８' '９';
-		range: 0 999;
-	}
-
 	li {
 		margin-left: 2.0rem;
 		padding-left: 1.0rem;
@@ -185,6 +179,12 @@
 	.foot3_span {
 		font-size: 1.4rem;
 		color: #202020;
+	}
+
+	@counter-style fullwidth-numbers {
+		system: numeric;
+		symbols: '０' '一' '二' '三' '４' '５' '６' '７' '８' '９';
+		range: 0 999;
 	}
 
 	@media only screen and (orientation: landscape) {
