@@ -143,17 +143,17 @@
 		list-style-type: fullwidth-numbers;
 	}
 
+	@counter-style fullwidth-numbers {
+		system: numeric;
+		symbols: '０' '一' '二' '三' '４' '５' '６' '７' '８' '９';
+		range: 0 999;
+	}
+
 	li {
 		margin-left: 2.0rem;
 		padding-left: 1.0rem;
 		margin-bottom: 7.0vh;
 		font-weight:400;
-	}
-
-	@counter-style fullwidth-numbers {
-		system: numeric;
-		symbols: '０' '一' '二' '三' '４' '５' '６' '７' '８' '９';
-		range: 0 999;
 	}
 
 	#scrollBsck {
@@ -203,6 +203,7 @@
 		}
 		ol {
 			margin: 1.0rem auto;
+			padding-left: 5.0rem;
 		}
 	}
 
