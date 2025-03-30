@@ -86,19 +86,6 @@
 		margin-bottom: 8.0rem;
 	}
 
-	@media only screen and (orientation: landscape) {
-		html {
-			font-size: calc(3.3vh * 1.5);
-		}
-		header, footer {
-			display: none;
-		}
-		.main_margin {
-			margin-top: 1.0rem;
-			margin-bottom: 1.0rem;
-		}
-	}
-
 	.head_div {
 		display: flex;
 		align-items: center;
@@ -200,6 +187,22 @@
 		visibility: hidden;
 		z-index: 1300;
 		transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+	}
+
+	@media only screen and (orientation: landscape) {
+		html {
+			font-size: calc(3.3vh * 1.5);
+		}
+		header, footer {
+			display: none;
+		}
+		.main_margin {
+			margin-top: 1.0rem;
+			margin-bottom: 1.0rem;
+		}
+		.time_span {
+			right: 10.0rem;
+		}
 	}
 
 </style>
