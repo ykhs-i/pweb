@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>旅行日程</title>
+
+<style>
+
+	html {
+		font-size: 3.3vw;
+	}
+
+	@keyframes slideIn {
+		0% {
+			transform: translateY(100%);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		width: 100%;
+		background-color: #FDFEFE;
+		font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	header, footer {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		background-color: #FDFEFE;
+		z-index: 1200;
+	}
+
+	header {
+		top: 0;
+		height: 3.5rem;
+	}
+
+	footer {
+		bottom: 0;
+		height: 3.0rem;
+	}
+
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	main {
+		position: relative;
+		left: 0;
+		min-height: 100vh;
+		width: 100%;
+		z-index: 1100;
+	}
+
+	.main_margin {
+		display: block;
+		margin-top: 6.0rem;
+		margin-bottom: 8.0rem;
+	}
+
+	.head_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80%;
+		height: 3.5rem;
+		border-bottom: 0.1rem solid #2020ff;
+	}
+
+	.foot_div {
+		display: flex;
+		height: 3.0rem;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.line_div {
+		display: flex;
+		position: relative;
+		width: 70%;
+		height: 1.4rem;
+	}
+
+	.row1_div {
+		flex: 3.5;
+		width: 35%;
+	}
+
+	.row2_div {
+		flex: 3.5;
+		width: 35%;
+		display: flex;
+		justify-content: flex-end;
+		text-align: right;
+	}
+
+	a {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+
+	.padding_a {
+		padding-left: 3.0rem;
+		padding-right: 3.0rem;
+	}
+
+	.head_span {
+		font-size: 2.0rem;
+		padding: 0.5rem;
+		color: #202020;
+	}
+
+	.info_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	.time_span {
+		font-size: 1.4rem;
+		color: #202020; 
+		text-align: right;
+	}
+
+	.time_span .sub-text {
+		position: relative;
+		top: 0.3em;
+	}
+
+	.foot1_span {
+		font-size: 1.7rem;
+		color: #202020;
+	}
+
+	.foot2_span {
+		font-size: 1.0rem;
+		color: #202020;
+	}
+
+	.foot3_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	#scrollBack {
+	}
+
+	.toggle-color1, .toggle-color2, .toggle-color3, .toggle-color4, .toggle-color5, .toggle-color6 {
+		color: #2020ff;
+	}
+
+	.red-text {
+		color: red;
+	}
+
+	.toggle-box1, .toggle-box2, .toggle-box3, .toggle-box4, .toggle-box5, .toggle-box6 {
+		position: absolute;
+		height: 7.7rem;
+		width: 24.2rem;
+		padding: 0.4rem;
+		left: 0;
+		border-radius: 1.0rem;
+		background-color: #00B0F0;
+		visibility: hidden;
+		z-index: 1300;
+		transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+	}
+
+	@media only screen and (orientation: landscape) {
+		html {
+			font-size: calc(3.3vh * 2.0);
+		}
+		header, footer {
+			display: none;
+		}
+		.main_margin {
+			margin-top: 1.0rem;
+			margin-bottom: 1.0rem;
+		}
+		li {
+			margin-left: 15.0vw;
+		}
+
+		.time_span {
+			right: 25.0vw;
+		}
+	}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="page-content" style="display:none;">
+
+<header>
+	<div class="head_div">
+		<a class="padding_a" href="index.htm">
+			<span class="head_span">旅のしおり</span>
+		</a>
+	</div>
+</header>
+
+<main style="animation: slideIn 0.5s ease-in-out forwards;">
+	<div class="main_margin">
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">１日目</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">４月１９日</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.5rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span id="toggle-info1" class="foot3_span toggle-color1">集　合</span>
+				<div class="toggle-box1">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７９９-０１１３<br>
+						四国中央市妻鳥町&nbsp;２１３７<br>
+						佐藤一久&nbsp;君宅
+					</span>
+				</div>
+					<span class="foot3_span" style="font-size: 1.0rem; color: #202020;">
+						&ensp;(一久君宅)
+					</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">９時４０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲20 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">出　発</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１０時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲60 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span id="toggle-info2" class="foot3_span toggle-color2">まほろばそば</span>
+				<div class="toggle-box2">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７８３-００６２<br>
+						南国市久礼田&nbsp;１１７<br>
+						０８８-８６２-２５５８
+					</span>
+				</div>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１１時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　昼　食</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">３０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲30 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span id="toggle-info3" class="foot3_span toggle-color3">龍河洞</span>
+				<div class="toggle-box3">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７８１-６２３６<br>
+						香美市土佐山田町逆川１４２４<br>
+						０８８７-５３-２１４４
+					</span>
+				</div>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１２時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　観　光</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">６０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲60 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span id="toggle-info4" class="foot3_span toggle-color4">植物園</span>
+				<div class="toggle-box4">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７８０-０８６２<br>
+						高知市五台山４２００-６<br>
+						０８８-８８２-２６０１
+					</span>
+				</div>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１４時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　観　光</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">６０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲30 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span id="toggle-info5" class="foot3_span toggle-color5">三翠園</span>
+				<div class="toggle-box5">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７８１-８１２５<br>
+						高知市鷹匠町&nbsp;１-３-３５<br>
+						０８８-８２２-０１３１
+					</span>
+				</div>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１５時３０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　自由時間</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">２時間３０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">宴　会</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１８時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　夕　食</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">６０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　余興</span>
+				<span class="foot3_span" style="font-size: 0.8rem; color: #b0b0b0;">
+					&ensp;(スライド，他)
+				</span>
+			</div>
+			<div class="row2_div">
+				<span class="foot3_span" style="color: #b0b0b0;">３０分</span>
+				<span class="time_span" style="font-size: 1.0rem; color: #b0b0b0; transform: translateY(25%);">
+					&ensp;(&thinsp;19:00～&thinsp;)
+				</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　歓　談</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">９０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">就　寝</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">２１時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 5.0rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">２日目</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">４月２０日</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.5rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">起　床</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">任　意</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　朝　食</span>
+			</div>
+			<div class="row2_div">
+				<span class="foot3_span" style="color: #b0b0b0;">３０分</span>
+				<span class="time_span" style="font-size: 1.0rem; color: #b0b0b0; transform: translateY(25%);">
+					&ensp;(&thinsp;08:00～&thinsp;)
+				</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">出　発</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１０時００分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲30 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span id="toggle-info6" class="foot3_span toggle-color6">桂　浜</span>
+				<div class="toggle-box6">
+					<span class="info_span" style="color:#FDFEFE;">
+						〒&nbsp;７８１-０２６２<br>
+						高知市浦戸&nbsp;９<br>
+						０８８-８４１-４１４０
+					</span>
+				</div>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１０時３０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span" style="color: #b0b0b0;">　観　光</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span" style="color: #b0b0b0;">６０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">帰　途</span>
+				<span class="foot3_span" style="font-size: 1.2rem; color: #202020;">
+					&ensp;(桂浜発)
+				</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１１時３０分</span>
+			</div>
+		</div>
+
+		<div class="line_div" style="height: 1.1rem;">
+			<div class="row1_div"></div>
+			<div class="row2_div">
+				<span style="font-size: 1.2rem; color:  #b0b0b0">▲90 min▼</span>
+			</div>
+		</div>
+
+		<div class="line_div">
+			<div class="row1_div">
+				<span class="foot3_span">帰　着</span>
+				<span class="foot3_span" style="font-size: 1.0rem; color: #202020;">
+					&ensp;(一久君宅)
+				</span>
+			</div>
+			<div class="row2_div">
+				<span class="time_span">１３時００分</span>
+			</div>
+		</div>
+
+	</div>	<!--	-->
+
+</main>
+
+<footer>
+	<div id="scrollBack" class="foot_div">
+		<p class="toggle-footer">
+			<span class="foot1_span">&copy;</span>
+			<span class="foot2_span">昭和４９年度 妻鳥小学校 卒業生</span>
+			<span class="foot3_span"> 2025</span>
+		</p>
+	</div>
+
+</footer>
+
+</div> <!-- page-content div の閉じタグ -->
+
+<div class="main_margin">
+	<div id="login-message" style="display:block;">
+		<a class="head_span" style="font-size: 18px; color: #2020ff;" href="index.htm">
+			<span>表紙から入ってつか</span>
+		</a>
+	</div>
+</div>
+
+<script>
+
+	function checkPageAuth() {
+		if (sessionStorage.getItem('auth') === 'true') {
+			document.getElementById("page-content").style.display = "block";
+			document.getElementById("login-message").style.display = "none";
+		} else {
+			document.getElementById("page-content").style.display = "none";
+			document.getElementById("login-message").style.display = "block";
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		checkPageAuth();
+	});
+
+
+
+	var footer = document.getElementById("scrollBack");
+
+	scrollBack.addEventListener('click', function() {
+		smoothScrollToTop();
+	});
+
+	function smoothScrollToTop() {
+		var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+		if (currentScroll > 0) {
+			window.requestAnimationFrame(smoothScrollToTop);
+			window.scrollTo(0, currentScroll - currentScroll / 8);
+		}
+	}
+
+
+
+
+	function toggleInfo(toggleColor, toggleBox) {
+		if (toggleBox.style.opacity === '' || toggleBox.style.opacity === '0') {
+			toggleBox.style.opacity = '0.85';
+			toggleBox.style.visibility = 'visible';
+			document.getElementById(toggleColor).style.color = 'red';
+		} else {
+			toggleBox.style.opacity = '0';
+			toggleBox.style.visibility = 'hidden';
+			document.getElementById(toggleColor).style.color = '#2020ff';
+		}
+	}
+
+	['toggle-info1', 'toggle-info2', 'toggle-info3', 'toggle-info4', 'toggle-info5', 'toggle-info6'].forEach((id, index) => {
+		document.getElementById(id).addEventListener('click', function() {
+			toggleInfo(
+				id,
+				document.querySelector(`.toggle-box${index + 1}`)
+			);
+		});
+	});
+
+</script>
+
+</body>
+
+</html>
