@@ -265,6 +265,40 @@
 		}
 	}
 
+
+
+
+	let savedScrollPositionPercentage = 0;
+	const offset = 5; //set offset as px
+	
+	function saveScrollPosition() {
+		const documentHeight = document.documentElement.scrollHeight;
+		const viewportHeight = window.innerHeight;
+		const scrollPosition = window.scrollY;
+		savedScrollPositionPercentage = (scrollPosition / (documentHeight - viewportHeight)) * 100;
+
+	}
+
+	window.addEventListener('scroll', saveScrollPosition);
+
+	window.addEventListener('resize', () => {
+		if (window.innerHeight < window.innerWidth) {
+			const documentHeight = document.documentElement.scrollHeight;
+			const viewportHeight = window.innerHeight;
+			const targetScrollPosition = (savedScrollPositionPercentage / 100) * (documentHeight - viewportHeight) + offset;
+			window.scrollTo(0, targetScrollPosition);
+		}
+	});
+
+	window.addEventListener('orientationchange', () => {
+		if (window.innerHeight < window.innerWidth) {
+			const documentHeight = document.documentElement.scrollHeight;
+			const viewportHeight = window.innerHeight;
+			const targetScrollPosition = (savedScrollPositionPercentage / 100) * (documentHeight - viewportHeight) + offset;
+			window.scrollTo(0, targetScrollPosition);
+		}
+	});
+
 /* */
 
 </script>
