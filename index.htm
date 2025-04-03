@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+
+<title>表紙</title>
+
+<style>
+
+	html { font-size: 3.3vw; }
+
+	@media (orientation: landscape) {
+		html { font-size: calc(3.3vh * 2.0); }
+	}
+
+	@keyframes slideIn {
+		0% {
+			transform: translateY(-100%);
+		}
+		100% {
+			transform: translateY(0);
+		}
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		min-height: 100vh;
+		width: 100%;
+		background-color: #FDFEFE;
+		font-family: "ヒラギノ丸ゴシック", "Helvetica Neue", Arial, sans-serif;
+		user-select: none;
+		touch-action: pan-y;
+		overflow-y: scroll;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	.login-container {
+		display: flex;
+		justify-content: space-between;
+		width: 60%;
+		align-items: center;
+		margin: 1.0rem auto;
+	}
+
+	.login-input {
+		flex: 2;
+		width: 40%;
+		border-radius: 0.5rem;
+		padding: 0.7rem;
+		border: solid 1px;
+		font-size: 18px;
+	}
+
+	.login-button {
+		flex: 1;
+		width: 20%;
+		border-radius: 0.5rem;
+		border: solid 1px;
+		padding: 0.5rem;
+		font-size: 18px;
+		color: #2020ff;
+	}
+
+	.login-alert {
+		color:red;
+		padding: 0.5rem;
+		font-size: 18px;
+		background-color: #FDFEFE;
+	}
+
+	.hidden-img {
+		position: relative;
+		display: none;
+		width: 100%;
+		height: 100vh;
+		margin: 0 auto;
+	}
+
+	.phote_img {
+		display: block;
+		position: relative;
+		margin: 0;
+		width: auto;
+		height: calc(100vh - 3.0rem);
+		top: 1.5rem;
+		left: 50%;
+		transform: translate(-50%, 0);
+		filter: sepia;
+		box-shadow: 0.5rem 1.0rem 1.0rem 0 rgba(0, 0, 0, 1.0);
+		z-index: 1100;
+	}
+
+	.gradient-box {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(to right, rgba(252, 206, 160, 0.0), rgba(112, 66, 20, 1.0));
+		opacity: 0.8;
+		pointer-events: none;
+		z-index: 1050;
+	}
+
+	.note_p {
+		position: absolute;
+		display: block;
+		margin: 0;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 1.4rem;
+		font-weight: bold;
+		color: white;
+ 		opacity: 0.7;
+		margin: 0;
+		text-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 1.0);
+		white-space: nowrap;
+		z-index: 1100;
+	}
+
+	header, footer {
+		position: fixed;
+		left: 0;
+		width: 100%;
+		background-color: #FDFEFE;
+		z-index: 1200;
+	}
+
+	header {
+		top: 0;
+		height: 3.5rem;
+	}
+
+	footer {
+		bottom: 0;
+		height: 3.0rem;
+	}
+
+	main {
+		position: relative;
+		left: 0;
+		height: 100vh;
+		width: 100%;
+		z-index: 1100;
+	}
+
+	.main_margin {
+		display: block;
+		margin-top: 6.0rem;
+		margin-bottom: 5.5rem;
+	}
+
+	@media only screen and (orientation: landscape) {
+		header, main, footer {
+			display: none;
+		}
+
+		.hidden-img {
+			display: block;
+		}
+	}
+
+	div {
+		position: relative;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.head_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 80%;
+		height: 3.5rem;
+		border-bottom: 0.1rem solid #2020ff;
+	}
+
+	.foot_div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 3.0rem;
+	}
+
+	a {
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		text-decoration: none;
+		cursor: pointer;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+
+	.padding_a {
+		padding-left: 3.0rem;
+		padding-right: 3.0rem;
+	}
+
+	.head_span {
+		font-size: 2.0rem;
+		color: #202020;
+	}
+
+	.menu_span {
+		font-size: 2.0rem;
+		color: #2020ff;
+	}
+
+	.foot1_span {
+		font-size: 1.7rem;
+		color: #202020;
+	}
+
+	.foot2_span {
+		font-size: 1.0rem;
+		color: #202020;
+	}
+
+	.foot3_span {
+		font-size: 1.4rem;
+		color: #202020;
+	}
+
+	ul {
+		margin: 0 auto;
+		width: 50%; 
+		list-style-type: none;
+	}
+
+	li {
+		margin-bottom:4.5vh;
+	}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hidden-img">
+	<img class="phote_img" src="group_phote2.gif" alt="group photo">
+	<div class="gradient-box"></div>
+	<p class="note_p">Back To The Good Old Days!</p>
+</div>
+
+<header>
+
+	<div class="head_div">
+		<a class="padding_a" href="sect9.htm">
+			<span class="head_span">旅のしおり</span>
+		</a>
+	</div>
+
+</header>
+
+<main style="animation: slideIn 0.5s ease-in-out forwards;">
+
+	<div class="main_margin">
+
+	<nav aria-label="main menu">
+		<ul>
+			<li><a 		      href="sect1.htm"><span class="menu_span">連絡事項</span></a></li>
+			<li><a 		      href="sect2.htm"><span class="menu_span">旅行日程</span></a></li>
+			<li><a 		      href="sect3.htm"><span class="menu_span">旅行地図</span></a></li>
+			<li><a id="dummyLink" href="#">	       <span class="menu_span">分乗車両</span></a></li>
+			<li><a		      href="sect6.htm"><span class="menu_span">注意事項</span></a></li>
+		</ul>
+	</nav>
+
+	</div>
+
+</main>
+
+<footer>
+
+	<div class="foot_div">
+		<p href="sect9.htm">
+			<span class="foot1_span">&copy;</span>
+			<span class="foot2_span">昭和４９年度 妻鳥小学校 卒業生</span>
+			<span class="foot3_span"> 2025</span>
+		</p>
+	</div>
+
+</footer>
+
+<script>
+
+	function createRandomLink() {
+		const randomString = Math.random().toString(10).substring(5, 8);
+		const baseLink = "sect4.htm";
+		const fullLink = baseLink + "?id=" + randomString;
+		const linkElement = document.getElementById("dummyLink");
+		linkElement.href = fullLink;
+	}
+
+
+
+	document.addEventListener('DOMContentLoaded', () => {
+		createRandomLink();
+	});
+
+
+</script>
+
+</body>
+
+</html>
