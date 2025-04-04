@@ -126,6 +126,45 @@
 		color: #202020;
 	}
 
+	.cell_div {
+		position: relative;
+		margin-top: 3.0rem;
+		height: 70%;
+		margin-bottom: 5.0rem;
+	}
+
+	.car-image {
+		display: block;
+		position: relative;
+		margin: 0 auto;
+		width: 75%;
+		z-index: -1;
+	}
+
+	.car-nam {
+		display: block;
+		position: absolute;
+		height: 10%;
+		top: -5%;
+		left: 5%;
+		font-size: 1.2rem;
+		text-align: left;
+		color: #202020;
+		background-color: transparent;
+	}
+
+	.car-num {
+		display: block;
+		position: absolute;
+		height: 10%;
+		bottom: 5%;
+		right: 5%;
+		font-size: 1.2rem;
+		text-align: right;
+		color: #202020;
+		background-color: transparent;
+	}
+
 	.overlay_span {
 		display: block;
 		position: absolute;
@@ -160,37 +199,6 @@
         #scrollBack {
 	}
 
-	.cell_div {
-		position: relative; 
-		margin-top: 3.0rem;
-		height: 70%;
-	}
-
-	.car-image {
-		display: block;
-		margin: 0 auto;
-		width: 75%;
-		z-index: 1300;
-	}
-
-	.car-nam {
-		font-size: 1.5rem;
-		color: #202020;
-		background-color: transparent;
-		text-align: left;
-		left: 1.5rem;
-		transform: translateY(50%)
-	}
-
-	.car-num {
-		font-size: 1.5rem;
-		color: #202020;
-		background-color: transparent;
-		text-align: right;
-		right: 1.5rem;
-		transform: translateY(-100%)
-	}
-
 	@media only screen and (orientation: landscape) {
 		html {
 			font-size: calc(2.0vw * 2.0);
@@ -204,7 +212,9 @@
 		.overlay_span {
 			display: none;
 		}
-	}
+		.car-nam, car-num {
+			font-size: 1.0rem;
+		}
 
 </style>
 
@@ -227,33 +237,45 @@
 	<div class="main_margin"></div>
 
 	<div class="cell_div">
-		<p class="car-nam">　マツダ　ＣＸ-８</p>
+		<span class="car-nam">マツダ　ＣＸ-８</span>
 		<img class="car-image" src="Cx8_W4.png" alt="ＣＸ-８">
-		<p class="car-num">１号車　</p>
+		<span class="overlay_span">３７-０６</span>
+		<span class="car-num">１号車</span>
 	</div>
 
 	<div class="cell_div">
-		<p class="car-nam">　トヨタ　ＳＰＡＤＥ</p>
+		<span class="car-nam">トヨタ　ＳＰＡＤＥ</span>
 		<img class="car-image" src="Spade_B1.png" alt="スペード">
-		<p class="car-num">２号車　</p>
+		<span class="overlay_span">４５-６４</span>
+		<span class="car-num">２号車</span>
 	</div>
 
 	<div class="cell_div">
-		<p class="car-nam">　トヨタ　ＣＲＯＷＮ</p>
+		<span class="car-nam">トヨタ　ＣＲＯＷＮ</span>
 		<img class="car-image" src="Crown_W1.png" alt="クラウン">
-		<p class="car-num">３号車　</p>
+		<span class="overlay_span">　７-１６</span>
+		<span class="car-num">３号車</span>
 	</div>
 
 	<div class="cell_div">
-		<p class="car-nam">　マツダ　ＭＡＺＤＡ３</p>
+		<span class="car-nam">マツダ　ＭＡＺＤＡ３</span>
 		<img class="car-image" src="Mazda3_S2.png" alt="マツダ３">
-		<p class="car-num">４号車　</p>
+		<span class="overlay_span">５５-２５</span>
+		<span class="car-num">４号車</span>
+	</div>
+
+	<div class="cell_div">
+		<span class="car-nam">スズキ　ＳＷＩＦＴ</span>
+		<img class="car-image" src="Swift_S1.png" alt="スイフト">
+		<span class="overlay_span">１２-２５</span>
+		<span class="car-num">５号車</span>
 	</div>
 
 	<div class="cell_div">
 	</div>
 
 	</div>
+
 </main>
 
 <footer>
