@@ -277,11 +277,11 @@
 
 	<nav aria-label="main menu">
 		<ul>
-			<li><a 		      href="sect1.htm"><span class="menu_span">連絡事項</span></a></li>
-			<li><a 		      href="sect2.htm"><span class="menu_span">旅行日程</span></a></li>
-			<li><a 		      href="sect3.htm"><span class="menu_span">旅行地図</span></a></li>
-			<li><a id="dummyLink" href="#">	       <span class="menu_span">分乗車両</span></a></li>
-			<li><a		      href="sect6.htm"><span class="menu_span">注意事項</span></a></li>
+			<li><a href="sect1.htm"><span class="menu_span">連絡事項</span></a></li>
+			<li><a href="sect2.htm"><span class="menu_span">旅行日程</span></a></li>
+			<li><a href="sect3.htm"><span class="menu_span">旅行地図</span></a></li>
+			<li><a href="sect4.htm"><span class="menu_span">分乗車両</span></a></li>
+			<li><a href="sect6.htm"><span class="menu_span">注意事項</span></a></li>
 		</ul>
 	</nav>
 
@@ -302,21 +302,6 @@
 </footer>
 
 <script>
-
-	function createRandomLink() {
-		const randomString = Math.random().toString(10).substring(5, 8);
-		const baseLink = "sect4.htm";
-		const fullLink = baseLink + "?id=" + randomString;
-		const linkElement = document.getElementById("dummyLink");
-		linkElement.href = fullLink;
-	}
-
-
-
-	document.addEventListener('DOMContentLoaded', () => {
-		createRandomLink();
-	});
-
 
 </script>
 
